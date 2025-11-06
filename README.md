@@ -2,6 +2,7 @@
 ## AGI 발현을 위한 Verifier에 대한 연구 개발
 ### Meta Score의 불확실한 일부 지표에 의존적이지 않은 Ensemble Meta Scoring 기법
 ### 💡 예시
+![image](./image/example.png)
 
 ## ⚙️ Requirements
 To install requirements:
