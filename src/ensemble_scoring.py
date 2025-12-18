@@ -45,6 +45,7 @@ def train(args, dataset):
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train).astype(np.float32)
     X_test  = scaler.transform(X_test).astype(np.float32)
+    joblib.dump(scaler, os.path.join(args.model_save_dir, "scaler.pkl"))
 
 
     model = Model(n_num_features = X_train.shape[1],
@@ -126,6 +127,8 @@ def scoring(args, data):
 
     le_path = os.path.join(args.model_save_dir, f"label_encoder.pkl")
     le = joblib.load(le_path)
+    scaler_path = os.path.join(args.model_save_dir, "scaler.pkl")
+    scaler = joblib.load(scaler_path)
     num_classes = len(le.classes_)
     model = Model(n_num_features = len(data),
                     cat_cardinalities = [],
@@ -146,7 +149,8 @@ def scoring(args, data):
     model.to(args.device)
     model.eval()
 
-    x = torch.tensor([data], dtype=torch.float32).to(args.device)
+    data_scaled = scaler.transform([data]).astype(np.float32)
+    x = torch.tensor(data_scaled, dtype=torch.float32).to(args.device)
     outputs = model(x, None)                        # (1, k, n_classes)
     outputs_prob = F.softmax(outputs, dim=-1)       # (1, k, n_classes)
     outputs_mean = outputs_prob.mean(dim=1)         # (1, n_classes)
@@ -169,7 +173,7 @@ def main():
     parser.add_argument("--ensemble_scorer_dir", type=str, default="ensemble_scorer_checkpoint", help="Directory to save ensemble_scorer model parameters")
     parser.add_argument("--log_dir", type=str, default="logs", help="logging log dir")
     parser.add_argument("--log_level", type=str, default="INFO", help="logging log level")
-    parser.add_argument("--mode", type=str, default="ensemble_scoring", help="train or ensembel_scoring")
+    parser.add_argument("--mode", type=str, default="ensemble_scoring", help="train or ensemble_scoring")
     parser.add_argument("--testset_ratio", type=float, default=0.3, help="testset ratio")
     parser.add_argument("--n_epochs", type=int, default=50, help="# of epochs")
     
