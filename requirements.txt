@@ -13,4 +13,5 @@ torch==2.5.1
 transformers==4.45.0
 sentencepiece
 pandas
+# Required for TabM model (tabm_reference.py)
 rtdl_num_embeddings

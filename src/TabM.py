@@ -52,7 +52,7 @@ def main():
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, f'{args.model_name}.csv')
 
-    with open(output_path, 'a+', encoding='utf-8', newline='') as csvf:
+    with open(output_path, 'w', encoding='utf-8', newline='') as csvf:
         wr = csv.writer(csvf)
             
         train_path = os.path.join(args.output_dir, "REF", "labeling", f"{args.model_name}_labeled.json")
