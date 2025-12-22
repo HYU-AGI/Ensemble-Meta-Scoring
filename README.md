@@ -12,10 +12,9 @@ pip install -r requirements.txt
 
 ## 💻 Usage Guide
 ### 1. Ensemble Scorer 실행을 위한 Meta-Scorer 결과 파일 준비
-Ensemble meta-score를 계산하기 위해서는 Meta-Scorer의 결과 파일이 필요합니다. \
+Ensemble meta-score를 계산하기 위해서는 Meta-Scorer의 결과 파일이 필요합니다.
+- [Meta-Scorer](https://github.com/HYU-AGI/Meta-Scorer) 를 참고해주세요. 결과 파일은 다음 경로 형식을 따라야 합니다: \
 결과 파일은 다음 경로 형식을 따라야 합니다: \
-```{meta_score_res_dir}/{dataset_name}/{meta_scoring}/{model_name}_meta_scores.json``` \
-즉, 파일은 아래 디렉토리 내에 위치해야 합니다. \
 ```{meta_score_res_dir}/{dataset_name}/{meta_scoring}```
 
 ### 2. Ensemble Scorer 학습 (Training)
